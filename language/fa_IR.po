@@ -19,6 +19,7 @@ msgstr ""
 msgid "User Management"
 msgstr "مدیریت کاربران"
 
+
 #: ../view/layout/layout.phtml:36
 msgid "Username"
 msgstr "نام کاربری"
@@ -47,8 +48,9 @@ msgstr "نقش"
 
 #: ../view/application/index/index.phtml:11
 #, php-format
-msgid "Default Language!"
+msgid "Default Language"
 msgstr "زبان پیش فرض"
+
 
 #: ../view/application/index/index.phtml:12
 msgid "Country"
@@ -57,3 +59,6 @@ msgstr "کشور"
 #: ../view/application/index/index.phtml:16
 msgid "Description"
 msgstr "توضیحات"
+
+msgid "Fill This Form For Creating New User"
+msgstr "برای ایجاد کابر جدید فرم زیر را پر کنید"

@@ -27,8 +27,6 @@ class ManageController extends  BaseController{
 
     public function onDispatch(\Zend\Mvc\MvcEvent $e)
     {
-
-        //*****
         $this->base = $this->getRequest()->getBasePath();
         $layout = $this->layout();
         $layout->setTemplate('layout/master');
@@ -48,6 +46,9 @@ class ManageController extends  BaseController{
     }
 
     public function createAction(){
+        $translator = $this->getServiceLocator()->get('translator');
+        $translator->setLocale("fa_IR");
+
         if($this->request->isPost()){
             $user = new User;
             $userDetails = new UserDetails();
@@ -74,7 +75,7 @@ class ManageController extends  BaseController{
         }
         $this->layout()->message = [
             'type' => 'info',
-            'text' => 'Fill This Form For Creating New User'
+            'text' =>  $translator->translate('Fill This Form For Creating New User')
         ];
         return $this->getCreateUserForm();
     }
@@ -151,42 +152,40 @@ class ManageController extends  BaseController{
 
         $translator = $this->getServiceLocator()->get('translator');
         $translator->setLocale("fa_IR");
-        $config = $this->getServiceLocator()->get('Config')['translator']['translation_file_patterns'];
-        var_dump($config);
-        $form     = new Form(['header' =>$translator->translate('User Management', __NAMESPACE__) ,'action' => $this->url()->getController()->getRequest()->getBaseUrl(). "/user/manage/create"]);
+        $form     = new Form(['header' => $translator->translate('User Management') ,'action' => $this->url()->getController()->getRequest()->getBaseUrl(). "/user/manage/create"]);
         $username = new Text([
             'name' => 'username',
-            'placeholder' => 'Username',
+            'placeholder' => $translator->translate('Username'),
             'type' => 'text',
-            'label' => 'Username',
+            'label' => $translator->translate('Username'),
         ]);
         $phone    = new Text([
             'name' => 'phone',
             'placeholder' => '',
             'type' => 'text',
-            'label' => 'Phone',
+            'label' => $translator->translate('Phone'),
         ]);
         $address  = new Text([
             'name' => 'address',
-            'placeholder' => 'Address ...',
+            'placeholder' => $translator->translate('Address') . '...',
             'type' => 'text',
-            'label' => 'Address',
+            'label' => $translator->translate('Address'),
         ]);
         $email    = new Text([
             'name' => 'email',
             'placeholder' => 'email@example.com',
             'type' => 'email',
-            'label' => 'Email',
+            'label' => $translator->translate('Email'),
         ]);
         $password = new Text([
             'name' => 'password',
             'placeholder' => '',
             'type' => 'password',
-            'label' => 'Password',
+            'label' => $translator->translate('Password'),
         ]);
         $role     = new Select([
             'name'  => 'role',
-            'label' => 'Role',
+            'label' => $translator->translate('Role'),
             'options' => [
                 '1' => 'Manager',
                 '2' => 'Operator',
@@ -195,21 +194,20 @@ class ManageController extends  BaseController{
         ]);
         $language     = new Select([
             'name'  => 'language',
-            'label' => 'Default Language',
+            'label' => $translator->translate('Default Language'),
             'options' => [
                 '1' => 'Persian',
                 '2' => 'English',
             ]
         ]);
-
         $country  = new Select2([
-            'label' => 'Country',
+            'label' => $translator->translate('Country'),
             'name' => 'country'
         ]);
         $description    = new Textarea([
             'name' => 'description',
-            'placeholder' => 'Description ...',
-            'label' => 'Description',
+            'placeholder' => $translator->translate('Description'). '...',
+            'label' => $translator->translate('Description'),
         ]);
         $enableCheckbox = new CheckBox(['name' => 'active', 'label' => 'Active']);
 
