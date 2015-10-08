@@ -3,23 +3,10 @@ namespace User;
 
 return array(
     'doctrine' => array(
-        'driver' => array(
-            __NAMESPACE__.'_driver' => array(
-                'class' =>'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/'.__NAMESPACE__.'/Entity')
-            ),
-
-            'orm_default' => array(
-                'drivers' => array(
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-                )
-
-            )),
         'authentication' => array(
             'orm_default' => array(
                 'object_manager' => 'Doctrine\ORM\EntityManager',
-                'identity_class' => 'User\Entity\User',
+                'identity_class' => 'Application\Entity\User',
                 'identity_property' => 'username',
                 'credential_property' => 'password',
             )
@@ -32,6 +19,17 @@ return array(
         'template_map' => array(
 
         )
+    ),
+    'translator' => array(
+        'locale' => 'fa_IR',
+        'translation_file_patterns' => array(
+            array(
+                'type'     => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern'  => '%s.mo',
+                'text_domain' => __NAMESPACE__,
+            ),
+        ),
     ),
 
     'controllers' => array(
@@ -76,6 +74,7 @@ return array(
             )
         )
     ),
+
 
     'menu'  => [
         'User Management' => [
