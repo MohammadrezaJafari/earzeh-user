@@ -2,10 +2,11 @@
 
 namespace User\Factory;
 use User\Controller\ManageController;
+use User\Controller\RegistrationController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ManageControllerFactory implements FactoryInterface
+class RegistrationControllerFactory implements FactoryInterface
 {
 
     /**
@@ -17,8 +18,10 @@ class ManageControllerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $realServiceLocator = $serviceLocator->getServiceLocator();
-        $doctrineService = $realServiceLocator->get('Doctrine\ORM\EntityManager');
-        $services = array("doctrine"=>$doctrineService);
-        return new ManageController($services);
+
+        $registrationService = $realServiceLocator->get('Ellie\Service\Registration');
+
+        $services =  array("registration"=>$registrationService);
+        return new RegistrationController($services);
     }
 }

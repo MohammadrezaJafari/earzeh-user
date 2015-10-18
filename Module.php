@@ -9,6 +9,7 @@
 
 namespace User;
 
+use Zend\EventManager\EventManager;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\MvcEvent;
@@ -21,6 +22,8 @@ class Module implements AutoloaderProviderInterface,
     {
 
     }
+
+
     public function getAutoloaderConfig()
     {
         return array(

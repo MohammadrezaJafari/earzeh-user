@@ -1,11 +1,12 @@
 <?php
 
 namespace User\Factory;
-use User\Controller\ManageController;
+use User\EventHandler\EventHandler;
+use User\Controller\ActivationController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ManageControllerFactory implements FactoryInterface
+class ActivationControllerFactory implements FactoryInterface
 {
 
     /**
@@ -19,6 +20,7 @@ class ManageControllerFactory implements FactoryInterface
         $realServiceLocator = $serviceLocator->getServiceLocator();
         $doctrineService = $realServiceLocator->get('Doctrine\ORM\EntityManager');
         $services = array("doctrine"=>$doctrineService);
-        return new ManageController($services);
+        $eventHandler = new EventHandler("User");
+        return new ActivationController($services,$eventHandler);
     }
 }

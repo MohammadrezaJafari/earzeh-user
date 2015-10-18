@@ -59,6 +59,3 @@ msgstr "کشور"
 #: ../view/application/index/index.phtml:16
 msgid "Description"
 msgstr "توضیحات"
-
-msgid "Fill This Form For Creating New User"
-msgstr "برای ایجاد کابر جدید فرم زیر را پر کنید"
