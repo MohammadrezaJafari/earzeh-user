@@ -15,6 +15,7 @@ class EventHandler implements EventManagerAwareInterface
         $this->module = $module;
         $this->setListeners();
     }
+
     public function createLog($title,$text)
     {
         $this->getEventManager()->trigger('createLog',$this,array("title"=>$title,"text"=>$text));

@@ -32,8 +32,6 @@ $this->headLink()
     </div><!-- /.modal-dialog -->
 </div>
 
-
-
 <div class="table-responsive">
     <table  class="table table-bordered" id="datatable" >
         <thead>
@@ -82,6 +80,7 @@ $this->headLink()
                             <li><a href="#">Details</a></li>
                             <li class="divider"></li>
                             <li><a href="<?php echo $this->url('user',['lang' => $this->lang,'controller' => 'manage' ,'action' => 'delete']); ?>">Remove</a></li>
+                            <li><a href="<?php echo $this->url('user',['lang' => $this->lang,'controller' => 'manage' ,'action' => 'delete']); ?>">Assign Service</a></li>
                         </ul>
                     </div>
                 </td>

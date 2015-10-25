@@ -49,6 +49,7 @@ return array(
             'manage' => 'User\Factory\ManageControllerFactory',
             'registration' => 'User\Factory\RegistrationControllerFactory',
             'activation' => 'User\Factory\ActivationControllerFactory',
+            'b2b' => 'User\Factory\B2BControllerFactory',
         ),
         'invokables' =>array(
             //without passing variable controlers
@@ -123,16 +124,103 @@ return array(
                     )
                 )
             ),
+
+
         )
     ),
 
-    'menu'  => [
-        'User Management' => [
-            'Create New User' => 'manage/create',
-            'Company List' => 'manage/list',
-            'Manager List' => 'user/manage/',
-            'Operator List' => 'user/manage/',
-            'Unregisted List' => 'user/manage/',
-        ]
-    ]
+    'navigation_manager' => [
+        "user"=>array(
+            "label" => "User Management",
+            'route' => 'user',
+            'inmenu'=>true,
+            'icon'=>"fa fa-users",
+            'params' => array(
+                'language'=>"fa",
+                'icon'=>"fa fa-users"
+            ),
+            'pages' => array(
+                array(
+                    'label' => 'Create New User',
+                    'route' => 'user',
+                    'params'=>array(
+                        'lang'=>'en',
+                        'controller'=>'manage',
+                        'action'=>'create',
+                    )
+                ),
+                array(
+                    'label' => 'Company List',
+                    'route' => 'user',
+                    'params'=>array(
+                        'lang'=>'en',
+                        'controller'=>'manage',
+                        'action'=>'list',
+                        'id' => 'company'
+                    )
+                ),
+                array(
+                    'label' => 'Manager List',
+                    'route' => 'user',
+                    'params'=>array(
+                        'lang'=>'en',
+                        'controller'=>'manage',
+                        'action'=>'list',
+                        'id' => 'manager'
+                    )
+                ),
+                array(
+                    'label' => 'Operator List',
+                    'route' => 'user',
+                    'params'=>array(
+                        'lang'=>'en',
+                        'controller'=>'manage',
+                        'action'=>'list',
+                        'id' => 'operator'
+                    )
+                ),
+                array(
+                    'label' => 'Unregistered List',
+                    'route' => 'user',
+                    'params'=>array(
+                        'lang'=>'en',
+                        'controller'=>'manage',
+                        'action'=>'list',
+                        'id' => 'unregistered'
+                    )
+                ),
+            ),
+        ),
+        "b2b"=>array(
+            "label" => "Business Management",
+            'route' => 'user',
+            'inmenu'=>true,
+            'icon'=>"fa fa-bitcoin",
+            'params' => array(
+                'language'=>"fa",
+                'icon'=>"fa fa-bitcoin"
+            ),
+            'pages' => array(
+                array(
+                    'label' => 'Create New Request',
+                    'route' => 'user',
+                    'params'=>array(
+                        'lang'=>'en',
+                        'controller'=>'b2b',
+                        'action'=>'create',
+                    )
+                ),
+                array(
+                    'label' => 'Requests List',
+                    'route' => 'user',
+                    'params'=>array(
+                        'lang'=>'en',
+                        'controller'=>'b2b',
+                        'action'=>'list',
+                    )
+                ),
+            )
+        )
+
+    ],
 );
