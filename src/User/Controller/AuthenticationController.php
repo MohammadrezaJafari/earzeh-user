@@ -21,17 +21,32 @@ class AuthenticationController extends  BaseController
     }
 
     public function loginAction(){
+
+        $this->layout()->setTemplate('layout/layout');
         if($this->AuthService->hasIdentity())
         {
-            return $this->redirect()->toRoute("home",array("controller"=>"Application\\Controller\\Index","action"=>"dashboard"));
+            $user = $this->AuthService->getIdentity();
+            $lang = 'en';
+            if($user->getDefaultLanguage() != null){
+                $lang = $user->getDefaultLanguage()->getName();
+            }
+
+            return $this->redirect()->toRoute("home",array("controller"=>"Application\\Controller\\Index","action"=>"dashboard", 'lang' => $lang));
         }
+
         if($this->request->isPost())
         {
-            $data = array("username"=>"asghar" , "password"=>"123");
+            $data = ['username' => $this->request->getPost('username'),
+                'password' =>$this->request->getPost('password')];
             $this->message ="wrong username or pass ...";
             if ($this->AuthService->authenticate($data["username"],$data["password"])) {
                 $this->message = "u are logedin :)";
-                return $this->redirect()->toRoute("home",array("controller"=>"Application\\Controller\\Index","action"=>"dashboard"));
+                $user = $this->AuthService->getIdentity();
+                $lang = 'en';
+                if($user->getDefaultLanguage() != null){
+                    $lang = $user->getDefaultLanguage()->getName();
+                }
+                return $this->redirect()->toRoute("home",array("controller"=>"Application\\Controller\\Index","action"=>"dashboard", 'lang'=> $lang));
             }
         }
 
@@ -46,7 +61,7 @@ class AuthenticationController extends  BaseController
 //        if($this->request->isPost())
 //        {
             $this->AuthService->clearIdentity();
-            return $this->redirect()->toRoute("user",array("controller"=>"authentication","action"=>"login"));
+            return $this->redirect()->toRoute("sign-up");
 //        }
     }
 }

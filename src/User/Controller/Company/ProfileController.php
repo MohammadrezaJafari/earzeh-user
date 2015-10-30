@@ -17,7 +17,7 @@ use Application\Controller\BaseController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
-class B2BController extends BaseController{
+class ProfileController extends BaseController{
     protected $serviceQueryPlugin;
     protected $serviceUiGeneratorPlugin;
     protected $language;
@@ -41,50 +41,8 @@ class B2BController extends BaseController{
 
     }
 
-    public function ihaveAction()
-    {
 
-    }
-
-    public function iwantAction()
-    {
-        echo "salam2";
-        return 1;
-    }
-
-    public function listAction()
-    {
-        $queryBuilder = $this->doctrineService->createQueryBuilder();
-        $queryBuilder
-            ->select('r.id', 'r.title' , 'r.description' , 'r.type', 'r.createdAt')
-            ->from('Application\Entity\Request','r')
-            ->where('r.user_id = :id')
-                ->setParameters(array('id'=>1));
-
-//        $queryBuilder
-//            ->select('s.id')
-//            ->from('Application\Entity\Service', 's')
-//            ->join('Application\Entity\RequestService','rs','WITH','s.id = IDENTITY(rs.service)');
-        $requests = $queryBuilder->getQuery()->getResult();
-        $view = new ViewModel();
-        $view->setTemplate('user/request');
-        $view->setVariables(['requests' => $requests, 'lang' => $this->lang]);
-        return $view;
-    }
-
-    public function getTableAction()
-    {
-
-        $result = new JsonModel(array(
-            'some_parameter' => 'some value',
-            'success'=>true,
-        ));
-
-        return $result;
-
-    }
-
-    public function createAction()
+    public function editAction()
     {
         if($this->request->isPost()){
 
@@ -111,7 +69,7 @@ class B2BController extends BaseController{
     public function getCreateServiceForm($services ,$languageCode, $currentService= null)
     {
 
-        $header = (isset($currentService))?"Edit Service":$this->translator->translate("Business Management");
+        $header = (isset($currentService))?"Edit Service":$this->translator->translate("Account Management");
         $action = (isset($currentService))?"edit":"create";
         $id = (isset($currentService))?$currentService[0]['id']:null;
         $serviceLangs = (isset($currentService))?(($currentService[0]["code"]=="fa")?array("fa"=>$currentService[0],"en"=>$currentService[1]):array("fa"=>$currentService[1],"en"=>$currentService[0])):array();
@@ -119,7 +77,7 @@ class B2BController extends BaseController{
 
         $tab = new TabSet();
 
-        $fieldsetFa = new FieldSet(['name' => 'serviceFa','header' => $this->translator->translate('Create New Request') , 'label' => 'Request']);
+        $fieldsetFa = new FieldSet(['name' => 'serviceFa','header' => $this->translator->translate('Edit Profile') , 'label' => 'Request']);
         $serviceNameFa = new Text([
             'name' => 'title',
             'placeholder' => $this->translator->translate('Title'),

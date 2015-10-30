@@ -1,6 +1,7 @@
 <?php
 namespace User;
 
+$app = $_REQUEST['uri'];
 return array(
     'doctrine' => array(
         'authentication' => array(
@@ -29,7 +30,7 @@ return array(
         ),
         'template_map' => array(
 
-        )
+        ),
     ),
 
     'translator' => array(
@@ -50,6 +51,7 @@ return array(
             'registration' => 'User\Factory\RegistrationControllerFactory',
             'activation' => 'User\Factory\ActivationControllerFactory',
             'b2b' => 'User\Factory\B2BControllerFactory',
+            'profile' => 'User\Factory\ProfileControllerFactory',
         ),
         'invokables' =>array(
             //without passing variable controlers
@@ -86,14 +88,13 @@ return array(
                     )
                 )
             ),
-
             'sign-up' => array(
                 // Define the routes type to be "Zend\Mvc\Router\Http\Literal", which is basically just a string
                 'type' => 'segment',
                 // Configure the route itself
                 'options' => array(
                     // Listen to "/blog" as uri
-                    'route'    => '/sign-up[/:controller[/:action]]',
+                    'route'    => '/',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
 
@@ -105,7 +106,6 @@ return array(
                     )
                 )
             ),
-
             'activate' => array(
                 // Define the routes type to be "Zend\Mvc\Router\Http\Literal", which is basically just a string
                 'type' => 'segment',
@@ -124,8 +124,6 @@ return array(
                     )
                 )
             ),
-
-
         )
     ),
 
@@ -141,7 +139,7 @@ return array(
             ),
             'pages' => array(
                 array(
-                    'label' => 'Create New User',
+                    'label' => 'Add New User',
                     'route' => 'user',
                     'params'=>array(
                         'lang'=>'en',
@@ -179,14 +177,25 @@ return array(
                         'id' => 'operator'
                     )
                 ),
+            ),
+        ),
+        "account"=>array(
+            "label" => "Account Management",
+            'route' => 'user',
+            'inmenu'=>true,
+            'icon'=>"fa fa-users",
+            'params' => array(
+                'language'=>"fa",
+                'icon'=>"fa fa-user"
+            ),
+            'pages' => array(
                 array(
-                    'label' => 'Unregistered List',
+                    'label' => 'Edit Profile',
                     'route' => 'user',
                     'params'=>array(
                         'lang'=>'en',
-                        'controller'=>'manage',
-                        'action'=>'list',
-                        'id' => 'unregistered'
+                        'controller'=>'profile',
+                        'action'=>'edit',
                     )
                 ),
             ),
@@ -205,7 +214,6 @@ return array(
                     'label' => 'Create New Request',
                     'route' => 'user',
                     'params'=>array(
-                        'lang'=>'en',
                         'controller'=>'b2b',
                         'action'=>'create',
                     )
@@ -221,6 +229,5 @@ return array(
                 ),
             )
         )
-
     ],
 );

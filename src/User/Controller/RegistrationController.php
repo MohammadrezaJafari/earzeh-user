@@ -10,17 +10,22 @@ namespace User\Controller;
 
 
 use Application\Controller\BaseController;
+use Application\Entity\User;
 use Ellie\UI\Element\Button;
 use Ellie\UI\Element\Text;
 use Ellie\UI\Form;
+use User\Helper\Helper;
+use Zend\View\Model\ViewModel;
 
 class RegistrationController extends BaseController{
 
     protected $registration;
+    protected $doctrineService;
 
     public function __construct($service)
     {
         $this->registration = $service['registration'];
+        $this->doctrineService = $service['doctrineService'];
     }
 
     public function registerAction()
@@ -29,50 +34,55 @@ class RegistrationController extends BaseController{
             //TODO:: Set Validation That All Input is valid
             //TODO:: Get User From Form
             $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-            $user = $em->find('Application\Entity\User', 1);
+            $user = new User;
+            $user->setusername($this->request->getPost('companyName'));
+            $user->setPassword(Helper::passwordGenerator());
+            $user->setRole();
+            $user->setStatus('disable');
+            $role = $this->doctrineService->find('Application\Entity\Role', 3);
+            $user->setRole($role);
             $this->registration->register($user);
-
-            if($this->request->getPost('companyName') == 'mreza'){
-            }
-            var_dump($this->getServiceLocator()->get('Ellie\Service\Registration'));die();
-
-            var_dump($this->request->getPost());die();
 
             return 'U R Registered';
         }
+        $layout = $this->layout();
+        $layout->setTemplate('user/welcome');
+        $layout->addChild($this->getForm(),'form');
 
-        return $this->getForm();
     }
 
     public function getForm()
     {
-        $form    = new Form(['header' => 'Registration Form', 'action' => '']);
+        $form    = new Form(['header' => ' ', 'action' => '']);
         $name    = new Text([
             'name' => 'companyName',
             'value' => '',
-            'label' => 'Company Name'
+            'placeholder' => 'Company Name',
+            'label' => ''
         ]);
         $email   = new Text([
             'name' => 'email',
             'value' => '',
             'type'  => 'email',
             'placeholder' => 'example@gmail.com',
-            'label' => 'Email'
+            'label' => ''
         ]);
         $code    = new Text([
             'name' => 'ecode',
             'value' => '',
-            'label' => 'Economic Code'
+            'placeholder' => 'Economic Code',
+            'label' => ''
         ]);
         $address = new Text([
             'name' => 'address',
-            'label' => 'Address',
+            'label' => '',
             'placeholder' => 'Address ... ',
             'value' => ''
         ]);
         $phone   = new Text([
             'name' => 'phone',
-            'label' => 'Phone'
+            'label' => '',
+            'placeholder' => 'Phone'
         ]);
 
         $form->addChild($name, 'name');

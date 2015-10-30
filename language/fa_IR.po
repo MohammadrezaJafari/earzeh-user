@@ -19,7 +19,45 @@ msgstr ""
 msgid "User Management"
 msgstr "مدیریت کاربران"
 
+#: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
+msgid "Add New User"
+msgstr "افزودن کاربر جدید"
 
+msgid "Company List"
+msgstr "لیست کمپانی ها"
+
+msgid "Manager List"
+msgstr "لیست مدیران"
+
+msgid "Operator List"
+msgstr "لیست اپراتور ها"
+
+msgid "Business Management"
+msgstr "مدیریت B2B"
+
+msgid "Create New Request"
+msgstr "ایجاد درخواست جدید"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Type"
+msgstr "نوع درخواست"
+
+msgid "I Have"
+msgstr "عرضه"
+
+msgid "I Want"
+msgstr "تقاضا"
+
+msgid "choose category of your service"
+msgstr  "انتخاب دسته برای سرویس"
+
+msgid "New Request"
+msgstr "ایجاد درخواست"
+
+msgid "Requests List"
+msgstr "لیست درخواست ها"
 #: ../view/layout/layout.phtml:36
 msgid "Username"
 msgstr "نام کاربری"
@@ -59,3 +97,9 @@ msgstr "کشور"
 #: ../view/application/index/index.phtml:16
 msgid "Description"
 msgstr "توضیحات"
+
+msgid "Account Management"
+msgstr "مدیریت حساب کاربری"
+
+msgid "Edit Profile"
+msgstr "ویرایش پروفایل"

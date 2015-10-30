@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php
+if (defined('RUNNING_FROM_ROOT')) {
+    $this->plugin('basePath')->setBasePath($this->basePath().'/public');
+//     die($this->basePath());
+}
+?>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Landing Page - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <?php echo $this->headLink()
+        ->appendStylesheet($this->basePath() . '/assets/welcome/css/bootstrap.min.css')
+        ->appendStylesheet($this->basePath() . '/assets/welcome/css/style.css');
+
+    $this->headLink()->deleteContainer();
+
+    ?>
+    <!-- Custom CSS -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <a href="#" class="lang"><img src="<?php echo $this->basePath() ?>/assets/welcome/img/Untitled-2.png"/></a>
+        <div class="login">
+            <form method="post" action="<?php echo $this->url('user', ['controller' => 'authentication','action' => 'login']) ?>" class="loginForm">
+                <input name="username" class="inputt" type="text" placeholder="نام کاربری" >
+                <input name="password" class="inputt" type="password" placeholder="رمز عبور">
+                <input  class="button" type="submit" value="">
+            </form>
+        </div>
+
+        <div class="navbar-header">
+            <a class="topnav" href="#">E Arzeh</a>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<!-- Header -->
+<a name="about"></a>
+<div class="intro-header">
+    <div class="row">
+        <div class="col-lg-8 middle">
+            <div class="register" style="color: #000000">
+                <?php echo $this->form ?>
+            </div>
+            <div class="desc">
+                <div class="p">
+                    شرکت Earzeh
+                    <br><br>
+                    این مجموعه در قالب فعالیت های بازرگانی برون مرزی خود توانسته است با بهره گیری از توانمندی و همکاری تولید کنندگان داخلی، خدماتی را در سطح بین المللی به مشتریان خود در ارائه دهد تا بتواند در روند نوین اقتصاد جهانی راهی برای کسب درآمدهای ارزی به کشور بگشاید. باشد تا بتوانیم گامی هرچند کوچک در راه توسعه اقتصادی این مرزو بوم برداریم.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.intro-header -->
+
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <p class="copyright small">Copyright &copy. All Rights Reserved</p>
+
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<?php
+echo $this->headScript()
+    ->appendFile($this->basePath() . '/assets/welcome/js/bootstrap.min.js');
+$this->headScript()->deleteContainer();
+
+?>
+</body>
+
+</html>
+
+

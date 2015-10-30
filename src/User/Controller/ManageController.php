@@ -30,7 +30,7 @@ class ManageController extends  BaseController implements ControllerInterface{
         $this->base = $this->getRequest()->getBasePath();
         $layout = $this->layout();
         $layout->setTemplate('layout/master');
-        $layout->setVariables(['menu' => $this->getServiceLocator()->get('Config')['menu']]);
+
         return parent::onDispatch($e);
     }
 
@@ -129,7 +129,6 @@ class ManageController extends  BaseController implements ControllerInterface{
     {
 
         $translator = $this->getServiceLocator()->get('translator');
-//        $translator->setLocale("fa_IR");
         $form     = new Form(['header' => $translator->translate('User Management') ,'action' => $this->url()->getController()->getRequest()->getBaseUrl(). "/user/manage/create"]);
         $username = new Text([
             'name' => 'username',
