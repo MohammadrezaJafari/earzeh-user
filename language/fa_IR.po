@@ -103,3 +103,51 @@ msgstr "مدیریت حساب کاربری"
 
 msgid "Edit Profile"
 msgstr "ویرایش پروفایل"
+
+msgid "Disable"
+msgstr "غیر فعال"
+
+msgid "Enable"
+msgstr "فعال"
+
+msgid "Status"
+msgstr "وضیعت"
+
+msgid "Manager"
+msgstr "مدیر"
+
+msgid "Company"
+msgstr "کمپانی"
+
+msgid "Operator"
+msgstr "اپراتور"
+
+msgid "Persian"
+msgstr "فارسی"
+
+msgid "English"
+msgstr "انگلیسی"
+
+
+msgid "Company Name"
+msgstr "نام کمپانی"
+
+msgid "Activation"
+msgstr "فعال سازی"
+
+msgid "Management"
+msgstr "مدیریت"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Block"
+msgstr "بلاک"
+
+msgid "Details"
+msgstr "جزییات"
+
+

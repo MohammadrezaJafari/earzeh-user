@@ -12,8 +12,8 @@
                                 <th><?php echo $this->translate('Title') ?></th>
                                 <th><?php echo $this->translate('Type') ?></th>
                                 <th><?php echo $this->translate('Status') ?></th>
-                                <th><?php echo $this->translate('Description') ?></th>
                                 <th><?php echo $this->translate('Created At') ?></th>
+                                <th><?php echo $this->translate('Request Info') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,8 +22,10 @@
                                     <td><?php echo $request['title'] ?></td>
                                     <td><?php echo $request['type'] ?></td>
                                     <td>Trident</td>
-                                    <td class="center"> <?php echo$request['description'] ?></td>
                                     <td class="center"><?php echo  $request['createdAt']->format('Y-m-d H:i:s') ?></td>
+                                    <td class="center">
+                                        <a href="<?php echo $this->url('user',['lang' => $this->lang,'controller' => 'b2b' ,'action' => 'requestdetail', 'id' => $request['id']]); ?>" class="btn btn-success btn-flat"><i class="fa fa-eye"></i><?php echo $this->translate('View Requests') ?></a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

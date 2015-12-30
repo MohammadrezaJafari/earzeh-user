@@ -41,7 +41,6 @@ class ProfileController extends BaseController{
 
     }
 
-
     public function editAction()
     {
         if($this->request->isPost()){
@@ -59,7 +58,6 @@ class ProfileController extends BaseController{
             $this->doctrineService->persist($request);
 
             $this->doctrineService->flush();
-            var_dump(1);die;
 
         }
         $services = $this->serviceUiGeneratorPlugin->getForTree($this->language->getId());
@@ -68,7 +66,11 @@ class ProfileController extends BaseController{
 
     public function getCreateServiceForm($services ,$languageCode, $currentService= null)
     {
-
+        $this->layout()->message = [
+            'type' => 'info',
+            'content' => 'این صفحه ی تکمیل اطلاعات شرکت ها می باشد. پیشنهاد می شود که در این قسمت فیلدی به نام زمینه ی فعالیت در نظر گرفته شود تا فقط سرویس های مربوط به آن بخش ها
+            به کاربر نمابش داده شود و'
+        ];
         $header = (isset($currentService))?"Edit Service":$this->translator->translate("Account Management");
         $action = (isset($currentService))?"edit":"create";
         $id = (isset($currentService))?$currentService[0]['id']:null;
@@ -78,18 +80,40 @@ class ProfileController extends BaseController{
         $tab = new TabSet();
 
         $fieldsetFa = new FieldSet(['name' => 'serviceFa','header' => $this->translator->translate('Edit Profile') , 'label' => 'Request']);
-        $serviceNameFa = new Text([
-            'name' => 'title',
-            'placeholder' => $this->translator->translate('Title'),
+        $firstName = new Text([
+            'name' => 'firstName',
+            'placeholder' => $this->translator->translate('First Name'),
             'type' => 'text',
             'value' => (isset($serviceLangs["fa"]["name"]))?$serviceLangs["fa"]["name"]:"",
-            'label' => $this->translator->translate('Title'),
+            'label' => $this->translator->translate('First Name'),
         ]);
 
-        $descriptionFa = new Textarea([
-            'name' => 'description',
-            'placeholder' => $this->translator->translate('Description') .' ...',
-            'label' => $this->translator->translate('Description'),
+        $lastName = new Text([
+            'name' => 'lastName',
+            'placeholder' => $this->translator->translate('Last Name'),
+            'type' => 'text',
+            'value' => (isset($serviceLangs["fa"]["name"]))?$serviceLangs["fa"]["name"]:"",
+            'label' => $this->translator->translate('Last Name'),
+        ]);
+
+        $postCode = new Text([
+            'name' => 'postCode',
+            'placeholder' => $this->translator->translate('Post Code'),
+            'type' => 'text',
+            'value' => (isset($serviceLangs["fa"]["name"]))?$serviceLangs["fa"]["name"]:"",
+            'label' => $this->translator->translate('Post Code'),
+        ]);
+        $job = new Text([
+            'name' => 'job',
+            'placeholder' => $this->translator->translate('Job'),
+            'type' => 'text',
+            'value' => (isset($serviceLangs["fa"]["name"]))?$serviceLangs["fa"]["name"]:"",
+            'label' => $this->translator->translate('Job'),
+        ]);
+        $dateOfBirth = new Text([
+            'name' => 'dateOfBirth',
+            'placeholder' => $this->translator->translate('Date'),
+            'label' => $this->translator->translate('Date OF Birth'),
             'value'=>(isset($serviceLangs["fa"]["description"]))?$serviceLangs["fa"]["description"]:"",
         ]);
 
@@ -97,14 +121,16 @@ class ProfileController extends BaseController{
             'options'=>['I Want' => $this->translator->translate('I Want'),
                 'I Have' => $this->translator->translate('I Have')]]);
 
-        $fieldsetFa->addChild($serviceNameFa, 'serviceNameFa');
-        $fieldsetFa->addChild($descriptionFa, 'username');
-        $fieldsetFa->addChild($enablCheckboxFa);
+        $fieldsetFa->addChild($firstName, 'serviceNameFa');
+        $fieldsetFa->addChild($lastName, 'serviceNameFa');
+        $fieldsetFa->addChild($postCode, 'username');
+        $fieldsetFa->addChild($job, 'username');
+        $fieldsetFa->addChild($dateOfBirth);
 
-        $submit = new Button();
+        $submit = new Button(['value' => 'Submit']);
 
         $treeSelect = new TreeSelect([
-            "title"=> $this->translator->translate("choose category of your service"),
+            "title"=> $this->translator->translate("Field"),
             "services"=>$services,
             "selected"=>(isset($currentService[0]["parent"]))?$currentService[0]["parent"]:"",
             "name" => "parent",

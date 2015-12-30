@@ -1,5 +1,6 @@
 <?php
 namespace User\Controller;
+
 use Application\Controller\BaseController;
 use Application\Entity\User;
 use Application\Entity\UserDetails;
@@ -13,6 +14,10 @@ use Ellie\UI\Element\Textarea;
 use Ellie\UI\Form;
 use Zend\View\Model\ViewModel;
 
+
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
 
 class ManageController extends  BaseController implements ControllerInterface{
 
@@ -82,7 +87,6 @@ class ManageController extends  BaseController implements ControllerInterface{
         return $this->getCreateUserForm();
     }
 
-
     public function editAction()
     {
         $user = $this->objectManager->find('Application\Entity\User', $this->params('id'));
@@ -116,7 +120,6 @@ class ManageController extends  BaseController implements ControllerInterface{
 
     public function deleteAction()
     {
-        var_dump(1);die();
         $user = $this->objectManager->find('Application\Entity\User', 8);
 
         $this->objectManager->remove($user);
@@ -164,17 +167,17 @@ class ManageController extends  BaseController implements ControllerInterface{
             'name'  => 'role',
             'label' => $translator->translate('Role'),
             'options' => [
-                '1' => 'Manager',
-                '2' => 'Operator',
-                '3' => 'Company'
+                '1' => $translator->translate('Manager'),
+                '2' => $translator->translate('Operator'),
+                '3' => $translator->translate('Company')
             ]
         ]);
         $language     = new Select([
             'name'  => 'language',
             'label' => $translator->translate('Default Language'),
             'options' => [
-                '1' => 'Persian',
-                '2' => 'English',
+                '1' => $translator->translate('Persian'),
+                '2' => $translator->translate('English'),
             ]
         ]);
         $country  = new Select2([
@@ -187,11 +190,10 @@ class ManageController extends  BaseController implements ControllerInterface{
             'label' => $translator->translate('Description'),
         ]);
         $status = new Select(['name' => 'status',
-            'label' => 'Status',
+            'label' => $translator->translate('Status'),
             'options' => [
-                'enable'  => 'Enable',
-                'disable' => 'Disable',
-                'unregistered' => 'Unregistered',
+                'enable'  => $translator->translate('Enable'),
+                'disable' => $translator->translate('Disable'),
             ]
         ]);
 
@@ -208,7 +210,7 @@ class ManageController extends  BaseController implements ControllerInterface{
         $form->addChild($status);
         $form->addChild($description, 'description');
 
-        $submit = new Button();
+        $submit = new Button(['value' => $this->translator->translate('Submit')]);
 
         $form->addChild($submit, 'submit');
 
@@ -216,4 +218,28 @@ class ManageController extends  BaseController implements ControllerInterface{
         return $form;
     }
 
+    public function sendAction()
+    {
+
+        $message = new Message();
+        $message->addTo('mohammadreza.jafari89@gmail.com')
+            ->addFrom('info@samanezayeat.ir')
+            ->setSubject('Greetings and Salutations!')
+            ->setBody("Sorry, I'm going to be late today!");
+
+        // Setup SMTP transport using LOGIN authentication
+        $transport = new SmtpTransport();
+//        $options   = new SmtpOptions(array(
+//            'name'              => 'localhost.localdomain',
+//            'host'              => 'http://136.243.77.249:2095/',
+//            'connection_class'  => 'login',
+//            'connection_config' => array(
+//                'username' => 'info@samanezayeat.ir',
+//                'password' => '145223491270',
+//            ),
+//        ));
+//
+//        $transport->setOptions($options);
+        $transport->send($message);
+    }
 }

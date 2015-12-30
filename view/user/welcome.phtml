@@ -63,6 +63,19 @@ if (defined('RUNNING_FROM_ROOT')) {
     <div class="row">
         <div class="col-lg-8 middle">
             <div class="register" style="color: #000000">
+
+                <?php if(count($this->messages)>0):?>
+                        <div style="direction: ltr; text-align:left" class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <i class="fa fa-info-circle sign"></i><strong></strong>
+                            <ul>
+                        <?php foreach($this->messages as $msg){
+                            echo "<li style='color: red; padding-right: 30px'> $msg </li>";
+                        }?>
+                        </ul>
+                        </div>
+
+                <?php endif;?>
                 <?php echo $this->form ?>
             </div>
             <div class="desc">
@@ -91,7 +104,8 @@ if (defined('RUNNING_FROM_ROOT')) {
 <!-- Bootstrap Core JavaScript -->
 <?php
 echo $this->headScript()
-    ->appendFile($this->basePath() . '/assets/welcome/js/bootstrap.min.js');
+    ->appendFile($this->basePath() . '/assets/layout/js/jquery.js')
+->appendFile($this->basePath() . '/assets/welcome/js/bootstrap.min.js');
 $this->headScript()->deleteContainer();
 
 ?>

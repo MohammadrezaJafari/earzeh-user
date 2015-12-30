@@ -1,7 +1,6 @@
 <?php
 namespace User;
 
-$app = $_REQUEST['uri'];
 return array(
     'doctrine' => array(
         'authentication' => array(
@@ -135,7 +134,9 @@ return array(
             'icon'=>"fa fa-users",
             'params' => array(
                 'language'=>"fa",
-                'icon'=>"fa fa-users"
+                'icon'=>"fa fa-users",
+                'controller'=>'manage',
+                'action'=>'create',
             ),
             'pages' => array(
                 array(
@@ -186,7 +187,9 @@ return array(
             'icon'=>"fa fa-users",
             'params' => array(
                 'language'=>"fa",
-                'icon'=>"fa fa-user"
+                'icon'=>"fa fa-user",
+                'controller'=>'profile',
+                'action'=>'edit',
             ),
             'pages' => array(
                 array(
@@ -207,15 +210,25 @@ return array(
             'icon'=>"fa fa-bitcoin",
             'params' => array(
                 'language'=>"fa",
-                'icon'=>"fa fa-bitcoin"
+                'icon'=>"fa fa-bitcoin",
+                'controller'=>'b2b',
+                'action'=>'create',
             ),
             'pages' => array(
                 array(
-                    'label' => 'Create New Request',
+                    'label' => 'Create New Sell Request',
                     'route' => 'user',
                     'params'=>array(
                         'controller'=>'b2b',
-                        'action'=>'create',
+                        'action'=>'sellrequest',
+                    )
+                ),
+                array(
+                    'label' => 'Create New Buy Request',
+                    'route' => 'user',
+                    'params'=>array(
+                        'controller'=>'b2b',
+                        'action'=>'buyrequest',
                     )
                 ),
                 array(

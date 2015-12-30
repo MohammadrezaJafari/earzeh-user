@@ -5,6 +5,10 @@ use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
+
 class EventHandler implements EventManagerAwareInterface
 {
 
@@ -36,7 +40,17 @@ class EventHandler implements EventManagerAwareInterface
     }
 
     public function EmailService(){
-        echo 'Email was sent';
+        $message = new Message();
+        $message->addTo('mohammadreza.jafari89@gmail.com')
+            ->addFrom('info@samanezayeat.ir')
+            ->setSubject('Greetings and Salutations!')
+            ->setBody("Your account was activated successfully
+                       User : Mreza
+                       Password : 123456");
+
+        // Setup SMTP transport using LOGIN authentication
+        $transport = new SmtpTransport();
+        $transport->send($message);
     }
 
     private function setListeners(){
@@ -55,6 +69,25 @@ class EventHandler implements EventManagerAwareInterface
         $this->getEventManager()->attach('activation.disable', function ($e){
             $this->EmailService();
         });
+
+        $this->getEventManager()->attach('registration.registered', function ($e){
+            var_dump(1);die;
+            $message = new Message();
+            $message->addTo('mohammadreza.jafari89@gmail.com')
+                ->addFrom('info@samanezayeat.ir')
+                ->setSubject('Greetings and Salutations!')
+                ->setBody("Your are  registered successfully");
+
+            // Setup SMTP transport using LOGIN authentication
+            $transport = new SmtpTransport();
+            $transport->send($message);
+        });
+
+    }
+
+    public function registered()
+    {
+        $this->getEventManager()->trigger('registration.registered');
     }
 
     /**

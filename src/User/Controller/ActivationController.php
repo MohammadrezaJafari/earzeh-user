@@ -55,11 +55,11 @@ class ActivationController extends BaseController{
 
     public function enableAction()
     {
-        $password = Helper::passwordGenerator();
         $user = $this->objectManager->getRepository('Application\Entity\User')->find($this->params('id'));
         $user->setStatus('enable');
         $this->objectManager->persist($user);
         $this->objectManager->flush();
+
         $this->eventHandler->activate();
 
         return $this->redirect()->toRoute("user",array('lang' => $this->params('lang'),"controller"=>"manage","action"=>"list", 'id' => lcfirst($user->getRole()->getName())));

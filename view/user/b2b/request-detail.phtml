@@ -1,0 +1,157 @@
+<div class="row">
+    <div class="col-sm-6 col-md-6">
+        <div class="block-flat">
+            <div class="header">
+                <h3>Request Info</h3>
+            </div>
+            <div class="content">
+                <h3>From : <?php echo $request->getUser()->getusername() ?></h3>
+                <h3>Type : <?php echo $request->getType() ?> Request</h3>
+                <h4>Title  : <?php echo $request->getTitle() ?></h4>
+                <h4 class="hthin">Description : </h4>
+                <p class="spacer">
+                    <?php echo $request->getDescription() ?>
+                </p>
+            <br><br>
+            </div>
+        </div>
+
+    </div>
+    <?php if($request->getType() == 'Buy'): ?>
+        <div class="col-md-4">
+        <div class="block-flat">
+            <div class="header">
+                <h4>Details List</h4>
+            </div>
+            <div class="content overflow-hidden">
+                <ul>
+                    <li>Number : <?php echo $request->getBuyInfo()->getNumber() ?></li>
+                    <li>Unit   : <?php echo $request->getBuyInfo()->getUnit() ?></li>
+                    <li>Proposed Price  :  <?php echo $request->getBuyInfo()->getProposedPrice() ?></li>
+                    <li>Expire Date :<?php if(!is_null($request->getBuyInfo()->getExpireDate())) echo $request->getBuyInfo()->getExpireDate()->format('Y-m-d H:i:s') ?></li>
+                    <li>Deadline : <?php if(!is_null($request->getBuyInfo()->getDeadline())) echo $request->getBuyInfo()->getDeadline()->format('Y-m-d H:i:s') ?></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <?php if($request->getType() == 'Sell'): ?>
+        <div class="col-md-4">
+            <div class="block-flat">
+                <div class="header">
+                    <h4>Details List</h4>
+                </div>
+                <div class="content overflow-hidden">
+                    <ul>
+                        <li>Number : <?php echo $request->getSellInfo()->getNumber() ?></li>
+                        <li>Unit   : <?php echo $request->getSellInfo()->getUnit() ?></li>
+                        <li>Price  :  <?php echo $request->getSellInfo()->getPrice() ?></li>
+                        <li>Deadline : <?php echo $request->getSellInfo()->getDeadline()->format('Y-m-d H:i:s') ?></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+    <div class="col-md-4">
+        <div class="block-flat">
+            <div class="header">
+                <h4>Documents</h4>
+            </div>
+            <div class="content overflow-hidden">
+                <ul>
+                    <li>Service Name : <?php echo $request->getService()->getServiceLang()[1]->getName() ?></li>
+                    <?php if($request->getType() == 'Buy'): ?>
+                        <li>Allow I : Link</li>
+                    <?php endif; ?>
+                    <?php if($request->getType() == 'Sell'): ?>
+                        <li>Techinal Report : Link</li>
+                        <li>Image : Link</li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<?php if($user == 'admin'): ?>
+
+    <div class=" row col-sm-12 col-md-12">
+    <div class="block-flat">
+        <div class="header">
+            <h3>Request Handler</h3>
+        </div>
+        <div class="content">
+            <?php
+            $this->headLink()
+                ->appendStylesheet($this->basePath() . '/assets/layout/js/jquery.datatables/bootstrap-adapter/css/datatables.css')
+                ->appendStylesheet($this->basePath() . '/assets/layout/js/jquery.niftymodals/css/component.css');
+            ?>
+            <?//=var_dump($services)?>
+            <?php if($canCreate):?>
+                <a href="<?=$this->url('service', array('controller'=>'management','action' => 'create'))?>"  class="btn btn-success btn-flat"><i class="fa fa-plus"></i> <?php echo $this->translate('New Service') ?></a>
+            <?php endif;?>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="datatable" >
+                    <thead>
+                    <tr>
+                        <th><?php echo $this->translate('Company Name') ?></th>
+                        <th style="text-align: center"><?php echo $this->translate('View Request') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $even=0;?>
+                    <tr class="gradeA odd">
+                        <td class=" sorting_1">Gecko</td>
+                        <td class=" sorting_1">
+                            <a href="#" class="btn btn-success btn-flat">
+                                <i class="fa fa-eye"></i><?php echo $this->translate('View Requests') ?>
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    <tr class="gradeA odd">
+                        <td class=" sorting_1">Gecko</td>
+                        <td class=" sorting_1">
+                            <a href="#" class="btn btn-success btn-flat">
+                                <i class="fa fa-eye"></i><?php echo $this->translate('View Requests') ?>
+                            </a>
+                        </td>
+
+                    </tr>
+
+                    <tr class="gradeA odd">
+                        <td class=" sorting_1">Gecko</td>
+                        <td class=" sorting_1">
+                            <a href="#" class="btn btn-success btn-flat">
+                                <i class="fa fa-eye"></i><?php echo $this->translate('View Requests') ?>
+                            </a>
+                        </td>
+
+                    </tr>
+                    <?php foreach($services as $service):?>
+                        <tr class="<?=($even)?"even":"odd"?>">
+                            <td><?=$service["name"]?></td>
+                            <?php if($canManage):?>
+                                <td style="text-align: center">
+                                    <a href="<?=$this->url('service', array('lang' => $this->lang,'controller'=>'management','action' => 'edit',"id"=>$service["id"]))?>" class="btn btn-info btn-flat"><i class="fa fa-edit"></i> <?php echo $this->translate('Edit') ?></a>
+                                </td>
+                                <td style="text-align: center">
+                                    <a href="<?=$this->url('service', array('controller'=>'management','action' => 'delete',"id"=>$service["id"]))?>" class="btn btn-warning btn-flat"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Delete') ?></a>
+                                </td>
+                            <?php endif;?>
+                            <td style="text-align: center">
+                                <a href="<?php echo $this->url('user',['lang' => $this->lang,'controller' => 'b2b' ,'action' => 'requestdetail', 'id' => 1]); ?>" class="btn btn-success btn-flat"><i class="fa fa-eye"></i><?php echo $this->translate('View Requests') ?></a>
+                            </td>
+                            <?php $even=($even)?0:1;?>
+                        </tr>
+                    <?php endforeach;?>
+                    <!--        -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
